@@ -55,10 +55,13 @@ end
 local md = ffi.new("unsigned char[32]")
 local md_len = ffi.new("unsigned int[1]")
 
-local result_ptr = ffi.C.HMAC(ffi.C.EVP_sha256(),
-    secret_key, #secret_key,
-    user_id, #user_id,
-    md, md_len)
+local result_ptr = ffi.C.HMAC(
+    ffi.C.EVP_sha256(),
+    ffi.cast("char *", secret_key), #secret_key,
+    ffi.cast("char *", user_id), #user_id,
+    md, md_len
+)
+
 
 if result_ptr == nil then
     ngx.log(ngx.ERR, "[HMAC] ❌ HMAC generation failed")
@@ -69,7 +72,7 @@ local signature_bin = ffi.string(md, md_len[0])
 local expected_signature = base64.encode_base64url(signature_bin):gsub("=", "")
 
 if expected_signature ~= signature then
-    ngx.log(ngx.ERR, "[HMAC] ❌ Signature mismatch")
+    ngx.log(ngx.ERR, "[HMAC] ❌ Signature mismatch: expected=", expected_signature, ", got=", signature)
     return exit_with_error(401, "Invalid Signature")
 end
 
