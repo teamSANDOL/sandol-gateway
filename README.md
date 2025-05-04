@@ -49,7 +49,13 @@
 
 ### ✅ 정규식 기반 예외 처리
 - 특정 경로(`/api/ping`, `/api/healthz` 등)는 인증 생략 가능
-- 각 서비스 conf 파일에서 `set $signature_whitelist_regex`로 지정
+- 각 서비스 conf 파일에서 `set $signature_whitelist_regex`로 정의
+
+> ⚠️ **주의사항**:
+> - `signature_whitelist_regex`는 정규식 문자열로 설정하지만,
+>   **`$`는 포함하지 마십시오.**
+> - 이 값은 Lua 코드에서 자동으로 `$`가 문자열 끝에 덧붙여져,
+>   **"해당 경로로 정확히 끝나는지"** 판단하는 데 사용됩니다.
 
 ### ✅ 인증 대상 경로 정의
 - 기본값으로 `/api/` 포함 경로만 인증 대상
