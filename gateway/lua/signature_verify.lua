@@ -1,6 +1,7 @@
 local uri = ngx.var.uri or ""
 local match_regex = ngx.var.signature_match_regex or "/api/"
-local whitelist_pattern = ngx.var.signature_whitelist_regex or ""
+local raw_regex = ngx.var.signature_whitelist_regex or ""
+local whitelist_regex = raw_regex .. "$"  -- 여기서 앵커 추가
 
 -- 1. URI가 Signature 인증 대상 경로인지 확인
 if not ngx.re.find(uri, match_regex, "jo") then
