@@ -1,7 +1,8 @@
 local uri = ngx.var.uri or ""
+
 local match_regex = ngx.var.signature_match_regex or "/api/"
-local raw_regex = ngx.var.signature_whitelist_regex or ""
-local whitelist_regex = raw_regex .. "$"  -- 여기서 앵커 추가
+local raw_regex = ngx.var.signature_whitelist_regex
+local whitelist_regex = (raw_regex and raw_regex ~= "") and (raw_regex .. "$") or nil  -- nil이면 검사 생략
 
 -- 1. URI가 Signature 인증 대상 경로인지 확인
 if not ngx.re.find(uri, match_regex, "jo") then
@@ -10,8 +11,8 @@ if not ngx.re.find(uri, match_regex, "jo") then
 end
 
 -- 2. API 경로지만 whitelist에 해당되면 생략
-if whitelist_pattern ~= "" then
-    local ok, err = ngx.re.find(uri, whitelist_pattern, "jo")
+if whitelist_regex then
+    local ok, err = ngx.re.find(uri, whitelist_regex, "jo")
     if ok then
         ngx.log(ngx.INFO, "[HMAC] 🔓 Whitelisted API path, skipping signature: ", uri)
         return
