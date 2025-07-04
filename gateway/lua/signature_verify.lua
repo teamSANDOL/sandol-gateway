@@ -74,7 +74,6 @@ local signature_bin = ffi.string(md, md_len[0])
 local expected_signature = base64.encode_base64url(signature_bin):gsub("=", "")
 
 if expected_signature ~= signature then
-    ngx.log(ngx.ERR, "[HMAC] ❌ Signature mismatch: expected=", expected_signature, ", got=", signature)
     return exit_with_error(401, "Invalid Signature")
 end
 
