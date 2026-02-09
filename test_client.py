@@ -6,15 +6,13 @@ import requests
 SECRET_KEY = "mysecretkey"
 USER_ID = "1234567890"
 
-signature = hmac.new(
-    SECRET_KEY.encode(), USER_ID.encode(), hashlib.sha256
-).digest()
+signature = hmac.new(SECRET_KEY.encode(), USER_ID.encode(), hashlib.sha256).digest()
 signature_base64 = base64.urlsafe_b64encode(signature).decode().rstrip("=")
 
 res = requests.get(
     "http://localhost:8010",
     headers={
-        "X-User-Sub": USER_ID,
+        "X-User-ID": USER_ID,
         "X-Signature": signature_base64,
     },
 )
