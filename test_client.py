@@ -14,7 +14,7 @@ signature_base64 = base64.urlsafe_b64encode(signature).decode().rstrip("=")
 res = requests.get(
     "http://localhost:8010",
     headers={
-        "X-User-ID": USER_ID,
+        "X-User-Sub": USER_ID,
         "X-Signature": signature_base64,
     },
 )

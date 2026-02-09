@@ -1,5 +1,18 @@
 # 📌 Sandol Gateway Repository
 
+> [!WARNING]
+> 아래의 `X-User-Sub` + `X-Signature` 기반 사용자 인증 설명은 레거시 정책입니다.
+> 현재 프로젝트 표준은 다음 문서를 기준으로 합니다.
+>
+> - `docs/README.md`
+> - `docs/auth-msa-communication.md`
+> - `docs/jwks-common-module-guideline.md`
+>
+> 최신 정책:
+> - MSA 간 사용자 컨텍스트는 `X-User-ID`(Keycloak `sub`) 사용
+> - Gateway 사용자 HMAC 인증은 폐기 대상
+> - 각 MSA가 JWKS 기반으로 Access Token 직접 검증
+
 ## 📂 개요  
 이 Repository는 **산돌이 프로젝트의 API Gateway**를 담당합니다.  
 모든 클라이언트 요청은 **OpenResty(Nginx + Lua) 기반 Gateway**를 통해  
@@ -9,7 +22,7 @@
 
 ## 📦 핵심 기능  
 - 요청 경로 기반 프록시 라우팅 (`/meal/`, `/user/`, `/kakao-bot/` 등)
-- `X-User-ID` + `X-Signature` 헤더를 활용한 **서명 기반 인증 처리**
+- `X-User-Sub` + `X-Signature` 헤더를 활용한 **서명 기반 인증 처리**
 - 인증 예외 경로는 **정규식으로 정의 가능** (ex. `/api/ping`, `/api/healthz`)
 - 인증 실패 시 `401 Unauthorized` 응답 처리
 - **정적 파일 서빙**(예: `/user/static/`) 지원
@@ -43,7 +56,7 @@
 
 ### ✅ 헤더 기반 서명 검증
 - 클라이언트 요청에는 반드시 아래 두 헤더가 포함되어야 함:
-  - `X-User-ID`: 사용자 ID
+  - `X-User-Sub`: 사용자 ID
   - `X-Signature`: HMAC-SHA256 기반 서명값
 - Gateway에서 `SECRET_KEY`를 이용해 재계산한 서명값과 비교
 
