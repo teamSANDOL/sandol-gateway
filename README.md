@@ -1,32 +1,21 @@
 # 📌 Sandol Gateway Repository
 
-> [!WARNING]
-> 아래의 `X-User-ID` + `X-Signature` 기반 사용자 인증 설명은 레거시 정책입니다.
-> 현재 프로젝트 표준은 다음 문서를 기준으로 합니다.
->
-> - `docs/README.md`
-> - `docs/auth-msa-communication.md`
-> - `docs/jwks-common-module-guideline.md`
->
-> 최신 정책:
-> - MSA 간 사용자 컨텍스트는 `X-User-ID`(Keycloak `sub`) 사용
-> - Gateway 사용자 HMAC 인증은 폐기 대상
-> - 각 MSA가 JWKS 기반으로 Access Token 직접 검증
+현재 프로젝트 표준 인증 정책은 루트 문서를 기준으로 합니다.
+
+- `docs/README.md`
+- `docs/auth-msa-communication.md`
+- `docs/jwks-common-module-guideline.md`
 
 ## 📂 개요  
 이 Repository는 **산돌이 프로젝트의 API Gateway**를 담당합니다.  
 모든 클라이언트 요청은 **OpenResty(Nginx + Lua) 기반 Gateway**를 통해  
-내부 MSA 서비스로 전달되며, 요청에 대해 **서명 기반 사용자 인증(Signature Verification)**이 수행됩니다.
+내부 MSA 서비스로 전달됩니다.
 
 ---
 
 ## 📦 핵심 기능  
 - 요청 경로 기반 프록시 라우팅 (`/meal/`, `/user/`, `/kakao-bot/` 등)
-- `X-User-ID` + `X-Signature` 헤더를 활용한 **서명 기반 인증 처리**
-- 인증 예외 경로는 **정규식으로 정의 가능** (ex. `/api/ping`, `/api/healthz`)
-- 인증 실패 시 `401 Unauthorized` 응답 처리
 - **정적 파일 서빙**(예: `/user/static/`) 지원
-- **확장 가능한 Signature 미들웨어 구조** 적용
 
 ---
 
@@ -37,7 +26,6 @@
 │   ├── default.conf              # 메인 Nginx 설정
 │   ├── routes/                   # 각 서비스별 conf
 │   └── lua/
-│       └── signature_verify.lua  # Signature 인증 미들웨어
 ├── test_api/                     # 테스트용 백엔드 서비스
 ├── docker-compose.yml            # Gateway + Backend 구성
 ```
@@ -46,33 +34,8 @@
 
 ## 🛠️ 사용 기술  
 - **Nginx (OpenResty 기반)**: 라우팅 및 인증 미들웨어 처리
-- **Lua (FFI + HMAC)**: Signature 검증 처리
 - **Docker + Docker Compose**: 컨테이너 기반 구성
 - **환경변수 관리**: `.env` 또는 CI에서 `SECRET_KEY` 설정
-
----
-
-## 🔐 인증 방식 요약
-
-### ✅ 헤더 기반 서명 검증
-- 클라이언트 요청에는 반드시 아래 두 헤더가 포함되어야 함:
-- `X-User-ID`: 사용자 ID
-  - `X-Signature`: HMAC-SHA256 기반 서명값
-- Gateway에서 `SECRET_KEY`를 이용해 재계산한 서명값과 비교
-
-### ✅ 정규식 기반 예외 처리
-- 특정 경로(`/api/ping`, `/api/healthz` 등)는 인증 생략 가능
-- 각 서비스 conf 파일에서 `set $signature_whitelist_regex`로 정의
-
-> ⚠️ **주의사항**:
-> - `signature_whitelist_regex`는 정규식 문자열로 설정하지만,
->   **`$`는 포함하지 마십시오.**
-> - 이 값은 Lua 코드에서 자동으로 `$`가 문자열 끝에 덧붙여져,
->   **"해당 경로로 정확히 끝나는지"** 판단하는 데 사용됩니다.
-
-### ✅ 인증 대상 경로 정의
-- 기본값으로 `/api/` 포함 경로만 인증 대상
-- 필요시 `set $signature_match_regex`로 확장 가능
 
 ---
 
@@ -141,5 +104,4 @@ services:
 
 ---
 
-🛡️ Signature 기반 인증으로 보호되는 **신뢰 가능한 Gateway**  
-📡 산돌이 프로젝트의 모든 API 요청은 이 Gateway를 통해 안전하게 전달됩니다.
+📡 산돌이 프로젝트의 모든 API 요청은 이 Gateway를 통해 전달됩니다.
