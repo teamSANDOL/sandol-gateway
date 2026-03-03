@@ -1,11 +1,5 @@
 # 📌 Sandol Gateway Repository
 
-현재 프로젝트 표준 인증 정책은 루트 문서를 기준으로 합니다.
-
-- `docs/README.md`
-- `docs/auth-msa-communication.md`
-- `docs/jwks-common-module-guideline.md`
-
 ## 📂 개요  
 이 Repository는 **산돌이 프로젝트의 API Gateway**를 담당합니다.  
 모든 클라이언트 요청은 **OpenResty(Nginx + Lua) 기반 Gateway**를 통해  
@@ -14,8 +8,16 @@
 ---
 
 ## 📦 핵심 기능  
-- 요청 경로 기반 프록시 라우팅 (`/meal/`, `/user/`, `/kakao-bot/` 등)
-- **정적 파일 서빙**(예: `/user/static/`) 지원
+- 요청 경로 기반 프록시 라우팅
+  - `/meal/`
+  - `/kakao-bot/`
+  - `/notice-notification/`
+  - `/classroom-timetable/`
+  - `/static-info/`
+  - `/relay/`
+  - `/grafana/`
+  - `/auth/` (Keycloak reverse proxy)
+- 공통 헤더 전달 (`Host`, `X-Real-IP`, `X-Forwarded-For`, `X-User-ID`, `Origin`)
 
 ---
 
@@ -24,18 +26,19 @@
 .
 ├── gateway/
 │   ├── default.conf              # 메인 Nginx 설정
-│   ├── routes/                   # 각 서비스별 conf
-│   └── lua/
+│   └── routes/                   # 각 서비스별 conf
 ├── test_api/                     # 테스트용 백엔드 서비스
 ├── docker-compose.yml            # Gateway + Backend 구성
+├── README.md
+└── test_client.py                # 요청 예제 스크립트
 ```
 
 ---
 
 ## 🛠️ 사용 기술  
-- **Nginx (OpenResty 기반)**: 라우팅 및 인증 미들웨어 처리
+- **Nginx (OpenResty 기반)**: 라우팅 및 리버스 프록시 처리
 - **Docker + Docker Compose**: 컨테이너 기반 구성
-- **환경변수 관리**: `.env` 또는 CI에서 `SECRET_KEY` 설정
+- **환경변수 관리**: `.env` 또는 셸 환경변수에서 `SECRET_KEY` 설정
 
 ---
 
@@ -57,6 +60,10 @@ docker compose up -d --build
 ```
 
 > `SECRET_KEY`는 `.env`에 정의하거나 환경변수로 주입해야 합니다.
+
+### 로컬 실행 범위 안내
+- 현재 `docker-compose.yml`은 `gateway`와 샘플 `backend`만 포함합니다.
+- 각 라우트가 가리키는 실제 서비스(`meal-service`, `kakao-bot-service` 등)는 이 저장소에서 함께 실행되지 않습니다.
 
 ---
 
@@ -90,17 +97,6 @@ services:
 - 도메인 연결: 예) `api.sandol.com`, `gateway.sandol.house.sio2.kr`
 - SSL: `Let's Encrypt` 및 `Certbot` 기반 인증서 적용 가능
 - 프록시 서버에 따라 내부 서비스 보안 정책 강화 가능
-
----
-
-## 📎 문서
-- [📄 API 명세서 (Notion)](링크 삽입)
-- [📄 서명 인증 구조 설명 (Notion)](링크 삽입)
-
----
-
-## 📞 문의
-- **디스코드 채널**: (링크 삽입)
 
 ---
 
