@@ -38,7 +38,6 @@
 ## 🛠️ 사용 기술  
 - **Nginx (OpenResty 기반)**: 라우팅 및 리버스 프록시 처리
 - **Docker + Docker Compose**: 컨테이너 기반 구성
-- **환경변수 관리**: `.env` 또는 셸 환경변수에서 `SECRET_KEY` 설정
 
 ---
 
@@ -59,8 +58,6 @@ docker compose down
 docker compose up -d --build
 ```
 
-> `SECRET_KEY`는 `.env`에 정의하거나 환경변수로 주입해야 합니다.
-
 ### 로컬 실행 범위 안내
 - 현재 `docker-compose.yml`은 `gateway`와 샘플 `backend`만 포함합니다.
 - 각 라우트가 가리키는 실제 서비스(`meal-service`, `kakao-bot-service` 등)는 이 저장소에서 함께 실행되지 않습니다.
@@ -75,11 +72,9 @@ services:
     build: ./gateway
     ports:
       - "8010:80"
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
     volumes:
       - ./gateway/default.conf:/etc/nginx/conf.d/default.conf:ro
-    command: ["/usr/local/openresty/bin/openresty", "-g", "env SECRET_KEY; daemon off;"]
+    command: ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
     depends_on:
       - backend
 
