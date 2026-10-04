@@ -3,7 +3,7 @@
 # 인자로 받은 명령(openresty)을 exec 한다. 값을 바꾸려면 .env 수정 후 컨테이너만 재시작.
 # 미설정이면 기본값을 쓰고, 설정됐는데 비었거나 형식이 틀리면 기동을 중단한다.
 set -eu
-DEFAULT="172.30.1.101,172.30.1.110,172.30.1.131,172.30.1.75,172.30.1.114"
+DEFAULT="172.30.1.101,172.30.1.110,172.30.1.31"   # NPM, cloudflared CT110, cloudflared CT131
 OUT="${TRUSTED_PROXIES_CONF:-/usr/local/openresty/nginx/conf/trusted-proxies.conf}"
 LIST=$(printf '%s' "${GATEWAY_TRUSTED_PROXIES-$DEFAULT}" | tr -d ' \r\n')
 [ -n "$LIST" ] || { echo "GATEWAY_TRUSTED_PROXIES 가 비어 있음" >&2; exit 1; }
