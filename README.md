@@ -14,10 +14,12 @@
   - `/notice-notification/`
   - `/classroom-timetable/`
   - `/static-info/`
+  - `/studyroom/`
   - `/relay/`
   - `/grafana/`
   - `/auth/` (Keycloak reverse proxy)
 - 공통 헤더 전달 (`Host`, `X-Real-IP`, `X-Forwarded-For`, `X-User-ID`, `Origin`)
+- `/studyroom/`은 예외다. GET, HEAD, OPTIONS만 받고 본문은 1k까지이며 `X-User-ID`는 비워서 넘긴다.
 
 ---
 
