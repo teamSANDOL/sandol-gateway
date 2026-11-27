@@ -1,0 +1,96 @@
+/* 브랜드별 색·장식 토큰. html[data-brand]는 게이트웨이(sub_filter)가 접속 도메인에 따라 채운다.
+   기본값(:root)은 한돌이(Figma), sandol 은 기존 산돌이(sandori.kr) 디자인이다. */
+:root {
+  /* 팔레트 */
+  --handol-main: #3882D3;
+  --handol-main-soft: #ECF4FD;
+  --handol-main-soft-2: #E8F0FC;
+  --handol-on-main: #FDFDFD;
+  --handol-text: #040404;
+  --handol-text-50: rgba(4, 4, 4, 0.5);
+  --handol-slate: #404756;
+  --handol-text-muted: #404756;
+  --handol-bg: #FDFDFD;
+  --handol-surface: #FFFFFF;
+  --handol-line: #D5DAE5;
+  --handol-sky: #95D4E7;
+  --handol-pink-soft: #FFE1E2;
+  --handol-inactive: #A4ABBD;
+  --handol-dark: #12131A;
+  /* 역할 토큰 */
+  --accent-text: var(--handol-main);
+  --text-body: var(--handol-text-muted);
+  --hero-bg: var(--handol-bg);
+  --section-soft-bg: var(--handol-bg);
+  --band-bg: var(--handol-main-soft);
+  --owner-card-bg: var(--handol-slate);
+  --chat-bg: var(--handol-main-soft);
+  --chat-bar: var(--handol-main-soft-2);
+  --step-bg: var(--handol-main);
+  --step-fg: var(--handol-on-main);
+  --bubble-bg: var(--handol-main);
+  --bubble-fg: var(--handol-on-main);
+  --say-bg: var(--handol-main);
+  --say-fg: var(--handol-on-main);
+  --warn-bg-c: var(--handol-pink-soft);
+  --warn-line-c: var(--handol-line);
+  --ok-c: var(--handol-main);
+  --ok-soft-c: var(--handol-main-soft);
+  --font-display: 'Pretendard', sans-serif;
+  --weight-display: 800;
+  --icon-radius: 0;
+  --glow-display: block;
+  --cloud-display: none;
+}
+:root[data-brand="sandol"] {
+  --handol-main: #3E96B8;
+  --handol-main-soft: #E3F1F6;
+  --handol-main-soft-2: #E3F1F6;
+  --handol-on-main: #FFFFFF;
+  --handol-text: #283149;
+  --handol-text-50: #9AA5AE;
+  --handol-slate: #33507A;
+  --handol-text-muted: #5D6B76;
+  --handol-bg: #FAF9F6;
+  --handol-line: #EFEDE6;
+  --handol-sky: #95E0F4;
+  --handol-pink-soft: #FFF6D6;
+  --handol-inactive: #8E9BAC;
+  --handol-dark: #283149;
+  --accent-text: #2E7591;
+  --text-body: #3F4A54;
+  --hero-bg: linear-gradient(180deg, #D4F1F9 0%, #95E0F4 100%);
+  --section-soft-bg: linear-gradient(180deg, #F3FAFD 0%, #E3F1F6 100%);
+  --band-bg: #95E0F4;
+  --owner-card-bg: linear-gradient(120deg, #283149 0%, #33507A 100%);
+  --chat-bg: #B2C7D9;
+  --chat-bar: #A3BACE;
+  --step-bg: #FEE500;
+  --step-fg: #191600;
+  --bubble-bg: #FEE500;
+  --bubble-fg: #191600;
+  --say-bg: #FEE500;
+  --say-fg: #191600;
+  --warn-line-c: #E8D48A;
+  --ok-c: #2F9E6A;
+  --ok-soft-c: #E4F5EC;
+  --font-display: 'Jalnan2', sans-serif;
+  --weight-display: 400;
+  --icon-radius: 24%;
+  --glow-display: none;
+  --cloud-display: block;
+}
+@font-face {
+  font-family: 'Jalnan2';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontbee/font@main/gccompany/JalnanOTF00.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.bi { border-radius: var(--icon-radius); }
+.handol-glow { display: var(--glow-display); }
+.sd-cloud, .cloud { display: var(--cloud-display); }
+/* 브랜드별로만 보이는 블록 (사장님 가이드 로그인 목업·문구) */
+html[data-brand="sandol"] [data-only="handol"],
+html[data-brand="handol"] [data-only="sandol"] { display: none !important; }
