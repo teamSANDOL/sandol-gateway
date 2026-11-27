@@ -27,4 +27,8 @@ RE="^$O(\.$O){3}(/(3[0-2]|[12]?[0-9]))?\$"
   echo "}"
 } > "$OUT.tmp" || { rm -f "$OUT.tmp"; exit 1; }
 mv "$OUT.tmp" "$OUT"
+# https 업스트림 신뢰 CA: 기본은 컨테이너 시스템 번들, 사설 CA 는 UPSTREAM_CA_BUNDLE(컨테이너 안 PEM 경로)
+CA="${UPSTREAM_CA_BUNDLE:-/etc/ssl/certs/ca-certificates.crt}"
+[ -r "$CA" ] || { echo "UPSTREAM_CA_BUNDLE 파일을 읽을 수 없음: $CA" >&2; exit 1; }
+printf 'proxy_ssl_trusted_certificate %s;\n' "$CA" > "${UPSTREAM_CA_CONF:-/usr/local/openresty/nginx/conf/upstream-ca.conf}"
 exec "$@"
