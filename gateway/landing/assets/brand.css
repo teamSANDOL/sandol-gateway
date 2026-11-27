@@ -91,3 +91,6 @@
 .bi { border-radius: var(--icon-radius); }
 .handol-glow { display: var(--glow-display); }
 .sd-cloud, .cloud { display: var(--cloud-display); }
+/* 브랜드별로만 보이는 블록 (사장님 가이드 로그인 목업·문구) */
+html[data-brand="sandol"] [data-only="handol"],
+html[data-brand="handol"] [data-only="sandol"] { display: none !important; }
