@@ -244,12 +244,23 @@
   .field { border: 1px solid var(--handol-line); border-radius: 8px; padding: 9px 12px; color: var(--handol-text-50); margin-bottom: 8px; }
   .btn { border-radius: 8px; text-align: center; padding: 10px; font-weight: 800; }
   .btn.kko { background: var(--kakao); color: var(--kakao-ink); }
+  .web { border: 1px solid var(--handol-line); }
+  .login-start { text-align: center; padding: 22px 20px 20px; background: linear-gradient(180deg, var(--handol-bg) 0%, var(--handol-surface) 100%); }
+  .login-start .ls-icon { width: 64px; height: 64px; display: block; margin: 0 auto 14px; }
+  .login-start .ls-title { margin: 0 0 18px; font-size: 14px; line-height: 1.45; font-weight: 800; letter-spacing: -0.02em; color: var(--handol-text); }
+  .login-start .ls-title span { color: var(--handol-main); }
+  .login-start .ls-social { display: flex; justify-content: center; gap: 14px; }
+  .login-start .ls-social span { width: 40px; height: 40px; border-radius: 13px; display: flex; align-items: center; justify-content: center; }
+  .login-start .ls-social svg { width: 40px; height: 40px; display: block; }
+  .login-start .ls-social .g svg, .login-start .ls-social .a svg { width: 22px; height: 22px; }
+  .login-start .ls-social .pick { outline: 2px solid var(--handol-main); outline-offset: 3px; }
+  .login-start .ls-hint { margin: 8px 0 0; font-size: 11.5px; font-weight: 800; color: var(--handol-main); }
+  .login-start .ls-or { display: flex; align-items: center; gap: 12px; margin: 14px 0; font-size: 11px; color: var(--handol-text-50); }
+  .login-start .ls-or i { flex: 1; height: 1px; background: var(--handol-line); }
+  .login-start .ls-id { background: var(--handol-main); color: var(--handol-on-main); border-radius: 12px; padding: 11px; font-weight: 800; font-size: 14px; }
   .or { text-align: center; color: var(--handol-text-50); font-size: 11.5px; margin: 12px 0; }
-  .web.dark { background: var(--handol-dark); color: var(--handol-on-main); }
-  .web.dark .web-bar { background: var(--handol-slate); color: var(--handol-inactive); }
-  .web.dark h4 { color: var(--handol-on-main); }
-  .check { display: flex; gap: 8px; margin: 6px 0; color: var(--handol-line); }
-  .check::before { content: "✓"; color: var(--handol-sky); font-weight: 800; }
+  .check { display: flex; gap: 8px; margin: 6px 0; color: var(--handol-text); }
+  .check::before { content: "✓"; color: var(--handol-main); font-weight: 800; }
   .login-ok { padding: 26px 20px; text-align: center; }
   .login-ok .ok { width: 46px; height: 46px; border-radius: 50%; background: var(--handol-main-soft); color: var(--handol-main); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; line-height: 1; margin: 0 auto 12px; }
   .login-ok .t { font-weight: 800; font-size: 15px; color: var(--handol-text); margin-bottom: 4px; }
@@ -350,8 +361,8 @@
         <li><span class="lead">채팅방에 <b class="say">로그인</b> 이라고 입력합니다.</span></li>
         <li><span class="lead"><strong>로그인 하러 가기</strong> 버튼을 누릅니다.</span>
           <span class="sub">버튼(로그인 링크)은 10분(600초) 후 만료됩니다. 만료되면 다시 "로그인"을 입력해 주세요.</span></li>
-        <li><span class="lead">열리는 사이트에서 <strong>카카오로 로그인하기</strong>를 누릅니다.</span>
-          <span class="sub">아이디·비밀번호로 회원가입할 수도 있지만, 카카오 로그인이 가장 간편해서 추천드립니다.</span></li>
+        <li><span class="lead">열리는 화면에서 노란색 <strong>카카오(TALK) 버튼</strong>을 누릅니다.</span>
+          <span class="sub">카카오 계정이 없거나 아이디로 가입하고 싶다면 <strong>아이디로 시작하기</strong>를 누르면 됩니다. 카카오 로그인이 가장 간편해서 추천드립니다.</span></li>
         <li><span class="lead">카카오 동의 화면에서 <strong>전체 선택하기</strong> → <strong>동의하고 계속하기</strong>를 누릅니다.</span></li>
         <li><span class="lead"><strong>"로그인이 완료되었습니다"</strong> 페이지가 나오면 로그인 완료!</span>
           <span class="sub">창을 닫고 카카오톡으로 돌아가 하시려던 작업을 계속하시면 됩니다. 로그인이 잘 됐는지 확인하고 싶다면 채팅방에 "계정정보"를 입력해 보세요.</span></li>
@@ -385,19 +396,20 @@
       </div>
 
       <p class="mock-label">로그인 페이지</p>
-      <div class="web" role="img" aria-label="한돌이 로그인 페이지. 카카오로 로그인하기 버튼을 누릅니다">
+      <div class="web" role="img" aria-label="한돌이 로그인 시작 화면. 노란색 카카오 TALK 버튼을 누릅니다">
         <div class="web-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> handol.app</div>
-        <div class="web-body">
-          <h4>계정에 로그인</h4>
-          <div class="field">아이디 또는 이메일</div>
-          <div class="field">비밀번호</div>
-          <div class="or">또는 다음을 사용하여 로그인</div>
-          <div class="btn kko">카카오로 로그인하기 ← 추천!</div>
+        <div class="web-body login-start">
+          <img class="ls-icon" src="/assets/handol-icon.svg" alt="">
+          <p class="ls-title">로그인하고 더 <span>똑똑한 학교생활</span>을<br>시작해요</p>
+          <div class="ls-social"><span class="pick"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="13" fill="#FEE500"/><ellipse cx="20" cy="18.5" rx="13" ry="9.5" fill="#191600"/><path d="M12 25l2.5-5 5 3z" fill="#191600"/><text x="20" y="21.5" text-anchor="middle" font-size="8" font-weight="800" font-family="Pretendard,sans-serif" fill="#FEE500">TALK</text></svg></span><span class="g"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><span class="a"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#040404" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg></span></div>
+          <p class="ls-hint">▲ 노란색 카카오 버튼을 눌러요</p>
+          <div class="ls-or"><i></i><span>또는</span><i></i></div>
+          <div class="ls-id">아이디로 시작하기</div>
         </div>
       </div>
 
       <p class="mock-label">카카오 동의 화면</p>
-      <div class="web dark" role="img" aria-label="카카오 동의 화면. 전체 선택 후 동의하고 계속하기를 누릅니다">
+      <div class="web" role="img" aria-label="카카오 동의 화면. 전체 선택 후 동의하고 계속하기를 누릅니다">
         <div class="web-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> kauth.kakao.com</div>
         <div class="web-body">
           <h4>카카오계정으로 간편가입</h4>
