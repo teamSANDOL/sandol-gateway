@@ -75,6 +75,7 @@
     .sd-faq summary { font-size: 16px !important; }
     .sd-footer { flex-direction: column !important; align-items: flex-start !important; padding-top: 32px !important; padding-bottom: 32px !important; }
     .sd-footer-brand { min-width: 0; }
+    .sd-footer-links { flex-wrap: wrap; gap: 8px 16px !important; }
     .sd-footer-brand img { flex-shrink: 0; }
     .sd-footer-brand > div { min-width: 0; }
     .sd-h1 { font-size: 32px !important; text-wrap: balance; }
@@ -290,7 +291,10 @@
         <div style="font-size:13px;">한국공학대학교 학생 챗봇 · teamSANDOL</div>
       </div>
     </div>
-    <div style="display:flex; gap:24px; font-size:14px;">
+    <div class="sd-footer-links" style="display:flex; gap:24px; font-size:14px;">
+      <a href="/policies/privacy/" style="color:var(--handol-sky);">개인정보 처리방침</a>
+      <a href="/policies/terms/" style="color:var(--handol-sky);">이용약관</a>
+      <a href="/policies/overseas-transfer/" style="color:var(--handol-sky);">개인정보 국외 이전 안내</a>
       <a href="https://github.com/teamSANDOL" style="color:var(--handol-sky);">GitHub</a>
     </div>
   </footer>
