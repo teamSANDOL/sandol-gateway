@@ -2,6 +2,7 @@
 # (.inc 확장자라 routes/*.conf 자동 include 대상이 아니다. 변수 정의는 01-brand.conf)
 sub_filter_once off;
 sub_filter '{{BRAND_NAME_EN}}'   $brand_name_en;
+sub_filter '{{BRAND_NAME_LATIN}}' $brand_name_latin;
 sub_filter '{{BRAND_NAME}}'      $brand_name;
 sub_filter '{{BRAND_RESTAURANT}}' $brand_restaurant;
 sub_filter '{{BRAND_DOMAIN}}'    $brand_domain;
