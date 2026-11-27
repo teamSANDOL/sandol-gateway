@@ -3,6 +3,7 @@
 sub_filter_once off;
 sub_filter '{{BRAND_NAME_EN}}'   $brand_name_en;
 sub_filter '{{BRAND_NAME}}'      $brand_name;
+sub_filter '{{BRAND_RESTAURANT}}' $brand_restaurant;
 sub_filter '{{BRAND_DOMAIN}}'    $brand_domain;
 sub_filter '{{BRAND_MASCOT_ALT}}' $brand_mascot_alt;
 sub_filter '{{BRAND_ICON_TYPE}}' $brand_icon_type;
